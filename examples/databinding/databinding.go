@@ -45,6 +45,7 @@ func main() {
 			Label{
 				Text: "animal:",
 			},
+			// 编辑框
 			TextEdit{
 				AssignTo: &outTE,
 				ReadOnly: true,
@@ -56,6 +57,7 @@ func main() {
 	}
 }
 
+// 动物结构体
 type Animal struct {
 	Name          string
 	ArrivalDate   time.Time
@@ -64,7 +66,7 @@ type Animal struct {
 	Sex           Sex
 	Weight        float64
 	PreferredFood string
-	Domesticated  bool
+	Domesticated  bool  // 是否是家养的
 	Remarks       string
 	Patience      time.Duration
 }
@@ -79,6 +81,7 @@ type Species struct {
 }
 
 func KnownSpecies() []*Species {
+	// 已知物种
 	return []*Species{
 		{1, "Dog"},
 		{2, "Cat"},
@@ -119,8 +122,8 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 	return Dialog{
 		AssignTo:      &dlg,
 		Title:         Bind("'Animal Details' + (animal.Name == '' ? '' : ' - ' + animal.Name)"),
-		DefaultButton: &acceptPB,
-		CancelButton:  &cancelPB,
+		DefaultButton: &acceptPB,  // 确认按钮
+		CancelButton:  &cancelPB,  // 取消按钮
 		DataBinder: DataBinder{
 			AssignTo:       &db,
 			Name:           "animal",
@@ -133,6 +136,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 			Composite{
 				Layout: Grid{Columns: 2},
 				Children: []Widget{
+					// Name
 					Label{
 						Text: "Name:",
 					},
@@ -140,6 +144,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Text: Bind("Name"),
 					},
 
+					// Arrival Date
 					Label{
 						Text: "Arrival Date:",
 					},
@@ -147,6 +152,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Date: Bind("ArrivalDate"),
 					},
 
+					// Species
 					Label{
 						Text: "Species:",
 					},
@@ -157,6 +163,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Model:         KnownSpecies(),
 					},
 
+					// Speed
 					Label{
 						Text: "Speed:",
 					},
@@ -164,6 +171,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Value: Bind("Speed"),
 					},
 
+					// 单选组
 					RadioButtonGroupBox{
 						ColumnSpan: 2,
 						Title:      "Sex",
@@ -176,6 +184,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						},
 					},
 
+					// Weight
 					Label{
 						Text: "Weight:",
 					},
@@ -185,6 +194,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Decimals: 2,
 					},
 
+					// Preferred Food
 					Label{
 						Text: "Preferred Food:",
 					},
@@ -194,6 +204,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Model:    []string{"Fruit", "Grass", "Fish", "Meat"},
 					},
 
+					// Domesticated: 单选框
 					Label{
 						Text: "Domesticated:",
 					},
@@ -206,6 +217,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Size:       8,
 					},
 
+					// Remarks：
 					Label{
 						ColumnSpan: 2,
 						Text:       "Remarks:",
@@ -216,6 +228,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Text:       Bind("Remarks"),
 					},
 
+					// Patience：
 					Label{
 						ColumnSpan: 2,
 						Text:       "Patience:",
@@ -226,6 +239,8 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 					},
 				},
 			},
+
+			// 按钮组
 			Composite{
 				Layout: HBox{},
 				Children: []Widget{
