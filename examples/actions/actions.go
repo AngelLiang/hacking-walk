@@ -15,6 +15,7 @@ import (
 
 var isSpecialMode = walk.NewMutableCondition()
 
+// 自定义 MainWindow 结构体
 type MyMainWindow struct {
 	*walk.MainWindow
 }

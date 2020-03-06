@@ -67,6 +67,7 @@ func main() {
 	if err := exitAction.SetText("E&xit"); err != nil {
 		log.Fatal(err)
 	}
+	// 添加触发事件
 	exitAction.Triggered().Attach(func() { walk.App().Exit(0) })
 	if err := ni.ContextMenu().Actions().Add(exitAction); err != nil {
 		log.Fatal(err)
