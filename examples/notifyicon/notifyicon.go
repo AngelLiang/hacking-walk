@@ -20,12 +20,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// 创建一个 icon
 	// We load our icon from a file.
 	icon, err := walk.Resources.Icon("../img/stop.ico")
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// 创建一个 notify icon ，并确保在退出时清除它
 	// Create the notify icon and make sure we clean it up on exit.
 	ni, err := walk.NewNotifyIcon(mw)
 	if err != nil {
@@ -33,6 +35,7 @@ func main() {
 	}
 	defer ni.Dispose()
 
+	// 设置图标和提示文本
 	// Set the icon and a tool tip text.
 	if err := ni.SetIcon(icon); err != nil {
 		log.Fatal(err)
@@ -41,6 +44,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// 当鼠标左键按下或弹起
 	// When the left mouse button is pressed, bring up our balloon.
 	ni.MouseDown().Attach(func(x, y int, button walk.MouseButton) {
 		if button != walk.LeftButton {
@@ -56,7 +60,9 @@ func main() {
 		}
 	})
 
+	// 放置一个 exit 操作到 menu
 	// We put an exit action into the context menu.
+	// Action: https://github.com/lxn/walk/blob/master/action.go#L23
 	exitAction := walk.NewAction()
 	if err := exitAction.SetText("E&xit"); err != nil {
 		log.Fatal(err)
@@ -66,6 +72,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// notify icon初始化时候是隐藏的，我们让它显示
 	// The notify icon is hidden initially, so we have to make it visible.
 	if err := ni.SetVisible(true); err != nil {
 		log.Fatal(err)
