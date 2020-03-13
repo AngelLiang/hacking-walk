@@ -114,6 +114,9 @@ const (
 	SexHermaphrodite
 )
 
+/*
+ * 弹窗
+ */
 func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 	var dlg *walk.Dialog
 	var db *walk.DataBinder
@@ -121,9 +124,13 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 
 	return Dialog{
 		AssignTo:      &dlg,
+		// 标题
 		Title:         Bind("'Animal Details' + (animal.Name == '' ? '' : ' - ' + animal.Name)"),
-		DefaultButton: &acceptPB,  // 确认按钮
-		CancelButton:  &cancelPB,  // 取消按钮
+		// 确认按钮
+		DefaultButton: &acceptPB,
+		// 取消按钮
+		CancelButton:  &cancelPB,
+		// 数据绑定
 		DataBinder: DataBinder{
 			AssignTo:       &db,
 			Name:           "animal",
@@ -141,6 +148,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Text: "Name:",
 					},
 					LineEdit{
+						// 绑定的数据变量必须使用驼峰命名
 						Text: Bind("Name"),
 					},
 
@@ -148,6 +156,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 					Label{
 						Text: "Arrival Date:",
 					},
+					// 日期编辑器
 					DateEdit{
 						Date: Bind("ArrivalDate"),
 					},
@@ -157,9 +166,11 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Text: "Species:",
 					},
 					ComboBox{
+						// SelRequired 需要选择
 						Value:         Bind("SpeciesId", SelRequired{}),
 						BindingMember: "Id",
 						DisplayMember: "Name",
+						// 可选的模型
 						Model:         KnownSpecies(),
 					},
 
@@ -177,6 +188,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						Title:      "Sex",
 						Layout:     HBox{},
 						DataMember: "Sex",
+						// 单选按钮组
 						Buttons: []RadioButton{
 							{Text: "Male", Value: SexMale},
 							{Text: "Female", Value: SexFemale},
@@ -190,7 +202,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 					},
 					NumberEdit{
 						Value:    Bind("Weight", Range{0.01, 9999.99}),
-						Suffix:   " kg",
+						Suffix:   " kg",  // 后缀
 						Decimals: 2,
 					},
 
@@ -249,6 +261,8 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 						AssignTo: &acceptPB,
 						Text:     "OK",
 						OnClicked: func() {
+							// db.Submit(): Widget -> Data
+							// 可以使用 db.Reset() 从数据返回到 Widget
 							if err := db.Submit(); err != nil {
 								log.Print(err)
 								return
