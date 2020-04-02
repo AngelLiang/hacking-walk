@@ -24,18 +24,21 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// 状态条item
 	var sbi *walk.StatusBarItem
 
 	MainWindow{
 		Title:   "Walk Statusbar Example",
 		MinSize: Size{600, 200},
 		Layout:  VBox{MarginsZero: true},
+		// 状态条Items
 		StatusBarItems: []StatusBarItem{
 			StatusBarItem{
 				AssignTo: &sbi,
 				Icon:     icon1,
 				Text:     "click",
 				Width:    80,
+				// 添加单击事件
 				OnClicked: func() {
 					if sbi.Text() == "click" {
 						sbi.SetText("again")
