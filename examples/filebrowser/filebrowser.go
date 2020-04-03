@@ -16,6 +16,8 @@ import (
 	. "github.com/lxn/walk/declarative"
 )
 
+/*****************************************************************************/
+/* 文件 */
 type Directory struct {
 	name     string
 	parent   *Directory
@@ -103,6 +105,8 @@ func (d *Directory) Path() string {
 	return filepath.Join(elems...)
 }
 
+/*****************************************************************************/
+/* 文件夹树模型 */
 type DirectoryTreeModel struct {
 	walk.TreeModelBase
 	roots []*Directory
@@ -143,12 +147,15 @@ func (m *DirectoryTreeModel) RootAt(index int) walk.TreeItem {
 	return m.roots[index]
 }
 
+/*****************************************************************************/
+/* 文件信息 */
 type FileInfo struct {
 	Name     string
 	Size     int64
 	Modified time.Time
 }
 
+/* 文件信息模型 */
 type FileInfoModel struct {
 	walk.SortedReflectTableModelBase
 	dirPath string
@@ -208,6 +215,8 @@ func (m *FileInfoModel) Image(row int) interface{} {
 	return filepath.Join(m.dirPath, m.items[row].Name)
 }
 
+/*****************************************************************************/
+
 func shouldExclude(name string) bool {
 	switch name {
 	case "System Volume Information", "pagefile.sys", "swapfile.sys":
@@ -216,6 +225,8 @@ func shouldExclude(name string) bool {
 
 	return false
 }
+
+/*****************************************************************************/
 
 func main() {
 	var mainWindow *walk.MainWindow
