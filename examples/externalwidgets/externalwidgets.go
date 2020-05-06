@@ -54,9 +54,11 @@ type MyWidget struct {
 	walk.WidgetBase
 }
 
+/* 构造函数 */
 func NewMyWidget(parent walk.Container) (*MyWidget, error) {
 	w := new(MyWidget)
 
+	// 调用  walk.InitWidget 初始化
 	if err := walk.InitWidget(
 		w,
 		parent,
@@ -93,6 +95,7 @@ func (li *myWidgetLayoutItem) IdealSize() walk.Size {
 	return li.idealSize
 }
 
+/* 覆写 WndProc 方法 */
 func (w *MyWidget) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	switch msg {
 	case win.WM_LBUTTONDOWN:
@@ -121,6 +124,7 @@ func NewMyPushButton(parent walk.Container) (*MyPushButton, error) {
 	return mpb, nil
 }
 
+/* 覆写 WndProc 方法 */
 func (mpb *MyPushButton) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	switch msg {
 	case win.WM_LBUTTONDOWN:

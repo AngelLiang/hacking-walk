@@ -76,6 +76,7 @@ func (lv *LogView) Write(p []byte) (int, error) {
 	return len(p), nil
 }
 
+/* 覆写 WndProc 方法 */
 func (lv *LogView) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	switch msg {
 	case win.WM_GETDLGCODE:
