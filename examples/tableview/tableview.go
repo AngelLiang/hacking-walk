@@ -229,7 +229,13 @@ func main() {
 						}
 					}
 				},
+				// 绑定模型
 				Model: model,
+				// 单选触发事件
+				OnCurrentIndexChanged:func() {
+					fmt.Printf("CurrentIndex: %v\n", tv.CurrentIndex())
+				},
+				// 多选触发事件
 				OnSelectedIndexesChanged: func() {
 					fmt.Printf("SelectedIndexes: %v\n", tv.SelectedIndexes())
 				},
