@@ -9,6 +9,7 @@ import (
 	. "github.com/lxn/walk/declarative"
 )
 
+/* 多页面配置 */
 type MultiPageMainWindowConfig struct {
 	Name                 string
 	Enabled              Property
@@ -32,6 +33,7 @@ type MultiPageMainWindowConfig struct {
 	PageCfgs             []PageConfig
 }
 
+/* 页面配置 */
 type PageConfig struct {
 	Title   string
 	Image   string
@@ -58,6 +60,7 @@ type MultiPageMainWindow struct {
 	currentPageChangedPublisher walk.EventPublisher
 }
 
+/* 创建多页面 MainWindow */
 func NewMultiPageMainWindow(cfg *MultiPageMainWindowConfig) (*MultiPageMainWindow, error) {
 	mpmw := &MultiPageMainWindow{
 		action2NewPage: make(map[*walk.Action]PageFactoryFunc),
@@ -146,10 +149,12 @@ func NewMultiPageMainWindow(cfg *MultiPageMainWindowConfig) (*MultiPageMainWindo
 	return mpmw, nil
 }
 
+/* 当前页面 */
 func (mpmw *MultiPageMainWindow) CurrentPage() Page {
 	return mpmw.currentPage
 }
 
+/* 当前页面标题 */
 func (mpmw *MultiPageMainWindow) CurrentPageTitle() string {
 	if mpmw.currentAction == nil {
 		return ""

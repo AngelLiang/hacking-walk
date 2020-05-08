@@ -42,6 +42,7 @@ func main() {
 		},
 	}
 
+	// 创建新的 MultiPageMainWindow
 	mpmw, err := NewMultiPageMainWindow(cfg)
 	if err != nil {
 		panic(err)
@@ -54,10 +55,14 @@ func main() {
 	mw.Run()
 }
 
+//****************************************************************************
+// AppMainWindow
+//****************************************************************************
 type AppMainWindow struct {
 	*MultiPageMainWindow
 }
 
+/* 更新标题 */
 func (mw *AppMainWindow) updateTitle(prefix string) {
 	var buf bytes.Buffer
 
@@ -71,6 +76,7 @@ func (mw *AppMainWindow) updateTitle(prefix string) {
 	mw.SetTitle(buf.String())
 }
 
+/* 关于 Menu 事件 */
 func (mw *AppMainWindow) aboutAction_Triggered() {
 	walk.MsgBox(mw,
 		"About Walk Multiple Pages Example",
@@ -78,6 +84,9 @@ func (mw *AppMainWindow) aboutAction_Triggered() {
 		walk.MsgBoxOK|walk.MsgBoxIconInformation)
 }
 
+//****************************************************************************
+// FooPage
+//****************************************************************************
 type FooPage struct {
 	*walk.Composite
 }
@@ -105,6 +114,9 @@ func newFooPage(parent walk.Container) (Page, error) {
 	return p, nil
 }
 
+//****************************************************************************
+// BarPage
+//****************************************************************************
 type BarPage struct {
 	*walk.Composite
 }
@@ -132,6 +144,9 @@ func newBarPage(parent walk.Container) (Page, error) {
 	return p, nil
 }
 
+//****************************************************************************
+// BazPage
+//****************************************************************************
 type BazPage struct {
 	*walk.Composite
 }
