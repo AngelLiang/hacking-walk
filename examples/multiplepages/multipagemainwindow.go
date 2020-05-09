@@ -35,9 +35,9 @@ type MultiPageMainWindowConfig struct {
 
 /* 页面配置 */
 type PageConfig struct {
-	Title   string
-	Image   string
-	NewPage PageFactoryFunc
+	Title   string				// 标题
+	Image   string				// 图片
+	NewPage PageFactoryFunc		// Page工厂函数
 }
 
 type PageFactoryFunc func(parent walk.Container) (Page, error)
@@ -163,6 +163,7 @@ func (mpmw *MultiPageMainWindow) CurrentPageTitle() string {
 	return mpmw.currentAction.Text()
 }
 
+/* 当前页面改变事件 */
 func (mpmw *MultiPageMainWindow) CurrentPageChanged() *walk.Event {
 	return mpmw.currentPageChangedPublisher.Event()
 }

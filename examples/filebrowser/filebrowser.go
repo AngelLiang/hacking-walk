@@ -164,6 +164,7 @@ type FileInfoModel struct {
 
 var _ walk.ReflectTableModel = new(FileInfoModel)
 
+/* 构建文件信息模型 */
 func NewFileInfoModel() *FileInfoModel {
 	return new(FileInfoModel)
 }
@@ -246,6 +247,7 @@ func main() {
 		Title:    "Walk File Browser Example",
 		MinSize:  Size{600, 400},
 		Size:     Size{1024, 640},
+		// MarginsZero: true 边距为零
 		Layout:   HBox{MarginsZero: true},
 		Children: []Widget{
 			HSplitter{
@@ -265,6 +267,7 @@ func main() {
 							}
 						},
 					},
+					// TableView
 					TableView{
 						AssignTo:      &tableView,
 						StretchFactor: 2,
@@ -286,6 +289,7 @@ func main() {
 							},
 						},
 						Model: tableModel,
+						// 点击事件
 						OnCurrentIndexChanged: func() {
 							var url string
 							if index := tableView.CurrentIndex(); index > -1 {
@@ -297,6 +301,7 @@ func main() {
 							webView.SetURL(url)
 						},
 					},
+					// Web视图
 					WebView{
 						AssignTo:      &webView,
 						StretchFactor: 2,

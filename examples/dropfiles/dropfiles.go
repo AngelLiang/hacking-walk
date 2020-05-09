@@ -17,6 +17,8 @@ func main() {
 		Title:   "Walk DropFiles Example",
 		MinSize: Size{320, 240},
 		Layout:  VBox{},
+		// 拖动文件组件
+		// 参数 files: 文件路径
 		OnDropFiles: func(files []string) {
 			textEdit.SetText(strings.Join(files, "\r\n"))
 		},
