@@ -184,12 +184,14 @@ func (m *FileInfoModel) SetDirPath(dirPath string) error {
 			}
 		}
 
+		// 文件名称
 		name := info.Name()
 
 		if path == dirPath || shouldExclude(name) {
 			return nil
 		}
 
+		// 添加文件信息
 		item := &FileInfo{
 			Name:     name,
 			Size:     info.Size(),
@@ -198,6 +200,7 @@ func (m *FileInfoModel) SetDirPath(dirPath string) error {
 
 		m.items = append(m.items, item)
 
+		// 是否是文件夹
 		if info.IsDir() {
 			return filepath.SkipDir
 		}
@@ -253,6 +256,7 @@ func main() {
 			HSplitter{
 				AssignTo: &splitter,
 				Children: []Widget{
+					// 树形视图
 					TreeView{
 						AssignTo: &treeView,
 						Model:    treeModel,

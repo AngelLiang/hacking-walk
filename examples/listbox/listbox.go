@@ -69,11 +69,13 @@ func (mw *MyMainWindow) lb_ItemActivated() {
 	walk.MsgBox(mw, "Value", value, walk.MsgBoxIconInformation)
 }
 
+// 环境变量Item
 type EnvItem struct {
 	name  string
 	value string
 }
 
+// 环境变量模型
 type EnvModel struct {
 	walk.ListModelBase
 	items []EnvItem

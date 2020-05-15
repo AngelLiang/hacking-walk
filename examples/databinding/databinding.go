@@ -184,7 +184,7 @@ func RunAnimalDialog(owner walk.Form, animal *Animal) (int, error) {
 
 					// 单选组
 					RadioButtonGroupBox{
-						ColumnSpan: 2,
+						ColumnSpan: 2,  // 占两列
 						Title:      "Sex",
 						Layout:     HBox{},
 						DataMember: "Sex",
